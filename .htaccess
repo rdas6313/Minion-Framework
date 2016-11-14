@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+#This Rewrite Condition is nothing just telling that if it able to find the Request file name as file or directory or link then dont go to the next Rule.
+
+
+RewriteRule ^(.+)$ index.php?url=$1 [NC,L,QSA] 
+
+#QSA means a?p=1 rewritten as index.php?url=a&p=1
+#since we are in mini directory ^ operator starts after mini/ . its means localhost/mini/whatever/url/we/write will be rewritten as localhost/mini/index.php?url=whatever/we/write
+#NC means case insensitive ,L means if a rules matches dont go for the next one.
