@@ -18,7 +18,8 @@ class admin extends Main
 	}
 	public function addcategory(){
 		if(isset($_POST['category']) && !empty($_POST['category'])){
-			$data  = array('category' => $_POST['category']);
+			$cat   = validation::valid($_POST['category']);
+			$data  = array('category' => $cat);
 			$count = $this->model('adminmodel','categoryadd',$data);
 			if($count>0){
 				$msg = 'Category Added Successfully';
@@ -44,7 +45,7 @@ class admin extends Main
 	public function editcategory($id=NULL){
 		if(isset($_POST['category']) && !empty($_POST['category'])){
 			$id  	= $_POST['id'];
-			$cat 	= $_POST['category'];
+			$cat 	= validation::valid($_POST['category']);
 			$count  = $this->model('adminmodel','updatecat',$id,$cat);
 			if($count>0){
 				$msg = 'Category updated Successfully';
@@ -81,9 +82,9 @@ class admin extends Main
 	}
 	public function addpost(){
 		if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['cat']) && !empty($_POST['cat']) && isset($_POST['content']) && !empty($_POST['content'])){
-			$title 		= $_POST['title'];
+			$title 		= validation::valid($_POST['title']);
 			$cat   		= $_POST['cat'];
-			$content 	= $_POST['content'];
+			$content 	= validation::valid($_POST['content'],false);
 			$data 		= array('title'=>$title,'cat'=>$cat,'content'=>$content);
 			$count 		= $this->model('adminmodel','postadd',$data);
 			if($count > 0){
@@ -136,7 +137,7 @@ class admin extends Main
 	public function editpost($id=NULL){ 
 		if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['cat']) && !empty($_POST['cat']) && isset($_POST['content']) && !empty($_POST['content'])){
 			$id         = $_POST['id'];
-			$title 		= $_POST['title'];
+			$title 		= validation::valid($_POST['title']);
 			$cat   		= $_POST['cat'];
 			$content 	= $_POST['content'];
 			$data 		= array('title'=>$title,'cat'=>$cat,'content'=>$content);
