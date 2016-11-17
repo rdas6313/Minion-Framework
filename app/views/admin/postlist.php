@@ -27,7 +27,7 @@
 					 	echo $text;
 					 ?></td>
 					<td width="15%" style="text-align: center;"><?php echo $val['category']; ?></td>
-					<td width="25%" style="text-align: center;"><a href="/mini/admin/editpost/<?php echo $val['id'];?>" style="text-decoration: none;">Edit</a> || <a href="/mini/admin/delpost/<?php echo $val['id'];?>" style="text-decoration: none;">Delete</a></td>
+					<td width="25%" style="text-align: center;"><a href="/mini/admin/editpost/<?php echo $val['id'];?>" style="text-decoration: none;">Edit</a> || <a onclick="return confirm('Are You Sure!');"href="/mini/admin/delpost/<?php echo $val['id'];?>" style="text-decoration: none;">Delete</a></td>
 				</tr>
 			<?php } ?>
 		</tbody>
