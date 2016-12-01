@@ -165,6 +165,37 @@ class admin extends Main
 			$this->view('admin/footer');
 		}
 	}
+	public function makeuser(){
+		$this->view('admin/header');
+		$this->view('admin/sidebar');
 
+		$this->view('admin/makeuser');
+		$this->view('admin/footer');
+	}
+	public function userlist(){
+		$msg=NULL;
+		if(isset($_GET['msg']) && !empty($_GET['msg']))
+			$msg = $_GET['msg'];
+		$this->view('admin/header');
+		$this->view('admin/sidebar');
+		$data = $this->model('adminmodel','userlist');
+		$this->view('admin/userlist',NULL,$data,$msg);
+		$this->view('admin/footer');
+	}
+	public function deluser($id=NULL){
+		if($id!=NULL){
+			$count = $this->model('adminmodel','deluser',$id);
+			if($count>0){
+				$msg = 'User Deleted Successfully';
+				$msg = urlencode(serialize($msg));
+				header('location:/mini/admin/userlist?msg='.$msg);
+
+			}else{
+				header('location:/mini/admin/Error');
+			}
+		}else{
+			header('location:/mini/admin/Error');
+		}		
+	}
 }
 ?>

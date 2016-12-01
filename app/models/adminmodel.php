@@ -65,5 +65,16 @@ class adminmodel extends modelsupport
 		$bind  = array(':id'=>$id);
 		return $this->update($table,$data,$cond,$bind);
 	}
+	public function userlist(){
+		$table="user_table";
+		$sql = "SELECT * FROM $table";
+		return $this->sqlquery($sql);
+	}
+	public function deluser($id){
+		$table = 'user_table';
+		$cond  = 'id=:id';
+		$bind  = array(':id' =>$id);
+		return $this->delete($table,$cond,$bind);
+	}
 }
 ?>
