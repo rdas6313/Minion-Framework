@@ -20,8 +20,8 @@ if(isset($_GET['url'])){
 	}
 	
 }else{
-	include_once 'app/controllers/Index.php';
-	$obj = new Index();
+	include_once 'app/controllers/Postcontroller.php';
+	$obj = new Postcontroller();
 	$obj->home();
 }
 

@@ -80,5 +80,21 @@ class adminmodel extends modelsupport
 		$table = 'user_table';
 		return $this->insert($table,$data);
 	}
+	public function mypassword(){
+		$table = "user_table";
+		session::init();
+		$id    = session::get('id');
+		$sql   = "SELECT password FROM $table WHERE id=$id";
+		return $this->sqlquery($sql);
+	}
+	public function newpassword($pass){
+		$table = "user_table";
+		session::init();
+		$id    = session::get('id');
+		$data  = array('password'=>$pass);
+		$cond  = "id=:id";
+		$bind  = array(':id'=>$id);
+		return $this->update($table,$data,$cond,$bind);	
+	}
 }
 ?>

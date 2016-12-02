@@ -225,5 +225,43 @@ class admin extends Main
 			header('location:/mini/admin/Error');
 		}		
 	}
+	public function changepassword(){
+		$msg = NULL;
+		if(isset($_POST['old_pwd']) && isset($_POST['new_pwd'])){
+			$old  		= md5($_POST['old_pwd']);
+			$old_msg 	= validation::length($_POST['old_pwd']); 
+			$new  		= md5($_POST['new_pwd']);
+			$new_msg 	= validation::length($_POST['new_pwd']);
+			$data = $this->model('adminmodel','mypassword');
+			if($old_msg!=NULL || $new_msg!=NULL){
+				if($old_msg)
+					$msg 	= urlencode(serialize("Old Password ".$old_msg));
+				else
+					$msg 	= urlencode(serialize("New Password ".$new_msg));
+			}
+			else if($old==$data[0]['password']){
+				if($old!=$new){
+					$count = $this->model('adminmodel','newpassword',$new);
+					if($count>0){
+						$msg = "<span style=\"color:green;font-size:20px\">Password Changed Successfully</span>";
+						$msg = urlencode(serialize($msg));
+					}else{
+						$msg = "Unable To Change Password";
+						$msg = urlencode(serialize($msg));
+					}
+				}else{
+					$msg = "Same Password Not <span style=\"color:red;font-size:20px\">Allowed</span>";
+					$msg = urlencode(serialize($msg));
+				}
+			}else{
+				$msg = "<span style=\"color:red;font-size:20px;\">Invalid Current Account Password</span>";
+				$msg = urlencode(serialize($msg));
+			}
+		}
+		$this->view('admin/header');
+		$this->view('admin/sidebar');
+		$this->view('admin/changepassword',NULL,NULL,$msg);
+		$this->view('admin/footer');
+	}
 }
 ?>

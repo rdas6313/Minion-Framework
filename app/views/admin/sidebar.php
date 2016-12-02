@@ -3,6 +3,7 @@
 						<h3>Home</h3>
 						<ul>
 							<li><a href="/mini/admin/index">Home</a></li>
+							<li><a href="/mini/admin/changepassword">Change Password</a></li>
 							<li><a href="/mini/login/logout">Logout</a></li>
 						</ul>
 					</div>

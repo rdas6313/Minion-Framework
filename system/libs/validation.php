@@ -14,5 +14,13 @@ class validation
 		}
 		return $data;
 	}
+	public static function length($data,$min=3,$max=20){
+		$len = strlen($data);
+		if($len>$max || $len<$min){
+			$msg = "Length Should Be Between $min And $max";
+			return $msg;	
+		}
+		return NULL;
+	}
 }
 ?>
