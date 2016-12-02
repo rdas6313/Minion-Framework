@@ -166,10 +166,31 @@ class admin extends Main
 		}
 	}
 	public function makeuser(){
+		$msg = NULL;
+		if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['pwd']) && isset($_POST['cat'])){
+			if(!empty($_POST['name']) && !empty($_POST['username']) && !empty($_POST['pwd']) && $_POST['cat']>0){
+				$name 		= validation::valid($_POST['name']);
+				$uname 		= validation::valid($_POST['username']);
+				$pwd		= validation::valid($_POST['pwd'],false);
+				$role 		= validation::valid($_POST['cat'],false);
+				$pwd 		= md5($pwd);
+				$data 		= array('username'=>$uname,'password'=>$pwd,'name'=>$name,'role'=>$role);
+				$count 		= $this->model('adminmodel','makeuser',$data);
+				if($count > 0){
+					$msg = 'User Added Successfully';
+					$msg = urlencode(serialize($msg));
+					header('location:/mini/admin/userlist?msg='.$msg);	
+				}
+
+			}else{
+				$msg = "You Must Fill all the Field";
+			}
+			
+		}
 		$this->view('admin/header');
 		$this->view('admin/sidebar');
 
-		$this->view('admin/makeuser');
+		$this->view('admin/makeuser',NULL,NULL,$msg);
 		$this->view('admin/footer');
 	}
 	public function userlist(){
@@ -184,14 +205,21 @@ class admin extends Main
 	}
 	public function deluser($id=NULL){
 		if($id!=NULL){
-			$count = $this->model('adminmodel','deluser',$id);
-			if($count>0){
-				$msg = 'User Deleted Successfully';
+			session::init();
+			if($id==session::get('id')){
+				$msg = 'Can\'t Delete The Active User.';
 				$msg = urlencode(serialize($msg));
 				header('location:/mini/admin/userlist?msg='.$msg);
-
 			}else{
-				header('location:/mini/admin/Error');
+				$count = $this->model('adminmodel','deluser',$id);
+				if($count>0){
+					$msg = 'User Deleted Successfully';
+					$msg = urlencode(serialize($msg));
+					header('location:/mini/admin/userlist?msg='.$msg);
+
+				}else{
+					header('location:/mini/admin/Error');
+				}
 			}
 		}else{
 			header('location:/mini/admin/Error');

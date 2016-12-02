@@ -27,7 +27,13 @@
 					 	echo $text;
 					 ?></td>
 					<td width="15%" style="text-align: center;"><?php echo $val['category']; ?></td>
+					<?php session::init(); 
+						if(session::get('role')!=1){
+					?>
+					<td width="25%">No permission</td>
+					<?php }else{ ?>
 					<td width="25%" style="text-align: center;"><a href="/mini/admin/editpost/<?php echo $val['id'];?>" style="text-decoration: none;">Edit</a> || <a onclick="return confirm('Are You Sure!');"href="/mini/admin/delpost/<?php echo $val['id'];?>" style="text-decoration: none;">Delete</a></td>
+					<?php } ?>
 				</tr>
 			<?php } ?>
 		</tbody>

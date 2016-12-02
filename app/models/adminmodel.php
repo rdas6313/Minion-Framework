@@ -76,5 +76,9 @@ class adminmodel extends modelsupport
 		$bind  = array(':id' =>$id);
 		return $this->delete($table,$cond,$bind);
 	}
+	public function makeuser($data){
+		$table = 'user_table';
+		return $this->insert($table,$data);
+	}
 }
 ?>

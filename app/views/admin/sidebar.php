@@ -6,6 +6,9 @@
 							<li><a href="/mini/login/logout">Logout</a></li>
 						</ul>
 					</div>
+					<?php session::init();
+						if(session::get('role')==1){
+					?>
 					<div class="menu">
 						<h3>User</h3>
 						<ul>
@@ -13,6 +16,7 @@
 							<li><a href="/mini/admin/userlist">User List</a></li>
 						</ul>
 					</div>
+					<?php } ?>
 					<div class="menu">
 						<h3>Category</h3>
 						<ul>

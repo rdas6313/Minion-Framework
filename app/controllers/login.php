@@ -26,6 +26,7 @@ class login extends Main
 			session::set('login',true);
 			session::set('id',$data[0]['id']);
 			session::set('name',$data[0]['name']);
+			session::set('role',$data[0]['role']);
 			header('location: /mini/admin/index');
 		}
 	}

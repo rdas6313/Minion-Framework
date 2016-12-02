@@ -19,10 +19,10 @@
 			<td><?php echo $val['username'];?></td>
 			<td><?php 
 					switch ($val['role']) {
-					 	case 0:
+					 	case 1:
 					 		echo 'Admin';
 					 		break;
-					 	case 1:
+					 	case 2:
 					 		echo 'Author';
 					 		break;
 					 	

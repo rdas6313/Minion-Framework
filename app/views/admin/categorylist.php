@@ -14,7 +14,13 @@
 		<tr>
 			<td><?php echo $i++;?></td>
 			<td><?php echo $val['category'];?></td>
+			<?php session::init(); 
+				if(session::get('role')!=1){
+			?>
+			<td>No Permission</td>
+			<?php }else{ ?>
 			<td><a href="/mini/admin/editcategory/<?php echo $val['id'];?>">Edit</a> || <a onclick="return confirm('Are You Sure !');" href="/mini/admin/delcategory/<?php echo $val['id'];?>">Delete</a></td>
+			<?php } ?>
 		</tr>
 		<?php
 			}
